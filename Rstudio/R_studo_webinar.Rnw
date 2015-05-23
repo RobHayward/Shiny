@@ -1,7 +1,8 @@
 \documentclass{hitec}
 \usepackage{tikz}
+\usepackage{listings}
 \usepackage[colorlinks = true, citecolor = blue, linkcolor = blue]{hyperref}
-\title{Event study}
+\title{R-Studio Shiny Webinar}
 \author{Rob Hayward}
 \begin{document}
 \maketitle
@@ -15,5 +16,23 @@
 \item How to custimise appearance
 \end{itemize}
 
+\href{http://www.rstudio.com/products/shiny/shiny-user-showcase/}{Shiny Showcase}.  
 
+\section*{Shiny Infractructure}
+The web page with the Shiny app is the tip of the iceberg with a computer running r code behind it. The computer that is runnin the shiny app is the laptop today.  If you want to share the app over the cloud, you have to arrange to have some sort of a web server to service the app. You set up a web server to maintain the app. Anyone can use the app from the cloud because the web server is designed to talk to the cloud. This means that there are two components for each app: 
+\begin{itemize}
+\item The user interface (ui) written in html
+\item The server (instructions for the server to follow)
+\end{itemize}
+
+It is advised to use the same template for each app. The template uas a very simple structure
+
+\begin{lstlisting}[frame = single, title = {"Shiny template"}]
+ui <- fluidPage()
+
+server <- function(input, output){}
+
+shinyApp(ui = ui, server = server)
+
+\end{lstlisting}
 \end{document}
