@@ -1,0 +1,19 @@
+\documentclass{hitec}
+\usepackage{tikz}
+\usepackage[colorlinks = true, citecolor = blue, linkcolor = blue]{hyperref}
+\title{Event study}
+\author{Rob Hayward}
+\begin{document}
+\maketitle
+\section*{R Studio Webinar}
+  This is comes from the R-Studio video tutorials and is an overview of how to build an ap. All the codes and slides are available on \href{bit.ly/shiney-quickstart-1}{bit.ly/shiney-quickstart-1}. All the materials and slides are in the \emph{download} folder.
+  
+  The three parts of the series will be
+\begin{itemize}
+\item How to build a Shiny app
+\item How to customise reactions
+\item How to custimise appearance
+\end{itemize}
+
+
+\end{document}
