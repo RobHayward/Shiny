@@ -1,6 +1,9 @@
 \documentclass{hitec}
 \usepackage{tikz}
 \usepackage{listings}
+\usepackage{color}
+\definecolor{mygrey}{gray}{0.85}
+\lstset{backgroundcolor = \color{mygrey}}
 \usepackage[colorlinks = true, citecolor = blue, linkcolor = blue]{hyperref}
 \title{R-Studio Shiny Webinar}
 \author{Rob Hayward}
@@ -27,7 +30,7 @@ The web page with the Shiny app is the tip of the iceberg with a computer runnin
 
 It is advised to use the same template for each app. The template uas a very simple structure
 
-\begin{lstlisting}[frame = single, title = {"Shiny template"}]
+\begin{lstlisting}[frame = single, caption = "Shiny template"]
 ui <- fluidPage()
 
 server <- function(input, output){}
@@ -35,4 +38,142 @@ server <- function(input, output){}
 shinyApp(ui = ui, server = server)
 
 \end{lstlisting}
+
+This is the template for the app.  Using just this code will create an app that is blank.  From this point, you add components to the server or user interface. This can also be thought as \emph{inputs} and \emph{outputs}.  These are inputs from the user of the app and outputs that the user sees. These are added with input and output functions. 
+
+\section*{Input}
+\begin{lstlisting}[frame = single, caption = "Input function"]
+sliderInput{inputId = "num", 
+  label = "Choose a number", 
+  value = 25, min = 1, max = 100}
+\end{lstlisting}
+
+There is an input name (for internal use), a label to display in the ui and some additional arguments to control the input (in this case the maximum and minimum). 
+
+\section*{Outputs}
+There are a range of \emph{output functions} that will place information on the page. 
+\begin{tabular}{l|l}
+\textbf{Function} & \textbf{Inserts}\\
+\hline
+dataTable()& an interactive table\\
+htmlOutput() & raw html\\
+imageOutput()& image\\
+plotOutput()&plot\\
+tableOutput()&talbe\\
+textOutput()&text\\
+uiOutput()&A Shiny ui element\\
+\end{tabular}
+
+It is possible to add a histogram.  First, provide a space for this in the user interface. This code will make a space for the histogram, even though there is no histogram to place in the space yet.  That has to be done in the server.
+
+\begin{lstlisting}[frame = single, caption = "Add a space for histogram"]
+ui <- fluidPage{
+  sliderInput(inputId = "num", 
+  label = "Choose a number", 
+  value = 25, min = 0, max = 100), 
+  plotOutput("hist")
+}
+
+server = function(input, output) {}
+
+shinyApp(ui = ui, server = server)
+\end{lstlisting}
+
+Now this server has to create the histogram with the r code. The server function will turn inputs into outputs. 
+
+The basic server template is 
+
+\begin{lstlisting}[frame = single, caption = "Basic server template"]
+server <- function(input, output){
+
+}
+\end{lstlisting}
+
+There are three rules for the server function
+\begin{itemize}
+\item Build objects to display with \lstinline{render()}.  Output objects must be saved to \lstinline{output$}.  For example
+\begin{lstlisting}[frame = single, caption = "Function rule 1"]
+server <- function(input, output){
+  output$hist <- renderPlot({
+  
+  }) 
+}
+\end{lstlisting}
+
+\begin{center}
+\begin{tabular}{l|p{5cm}}
+\textbf{Function} & \textbf{Creates}\\
+\hline
+renderDataTable() & An interactive table\\
+renderImage() & An image (saved as a link to a source file)\\
+renderPlot()& A plot\\
+renderPrint() & A code block of printed output\\
+renderTable() & A table\\
+renderText() & A character string\\
+\end{tabular}
+\end{center}
+\item Use the same name in both files: in the server function, the object name is the element of a list, in the ui object it is a character string. 
+\item What you save into output should be something that is build with the \lstinline{render function}.  The render functions work togehter with the output functions to place an r object as html into your sinhy web page. Render functions deliver differnet output. There is usually a render function for a render output. To plot a histogram of 100 normal random values
+
+\begin{lstlisting}[frame = single, caption = "100 normal random samples"]
+renderPlot({hist(rnorm(100))})
+\end{lstlisting}
+
+This is composed of a reference to the type of object to be built (plot in this case) and the r code that will build the output.
+
+
+The full outout is 
+\begin{lstlisting}[frame = single, caption = "Server output"]
+server <- function(input, output){
+  output$hist <- renderPlot({hist(rnorm(100))
+  })
+}
+\end{lstlisting}
+
+The braces allow as many lines of code as you want.  For example, 
+
+\begin{lstlisting}[frame = single, caption = "Server output"]
+server <- function(input, output){
+  output$hist <- renderPlot({
+  title = "Random samples"
+  hist(rnorm(100), main = title)
+  })
+}
+\end{lstlisting}
+In this way, it is possible to add as many lines of R code as necessary. 
+\item Use input values with \lstinline{input$}. This is the information that comes from the user input. For example, 
+
+\begin{lstlisting}[frame = single, caption = "Input values"]
+server <- function(input, output){
+  output$hist <- renderPlot({
+    hist(rnorm(input$num))
+  })
+}
+\end{lstlisting}
+
+This input value will always show the current value of the input. 
+\end{itemize}
+\section*{Three rules}
+Three rules
+\begin{itemize}
+\item Save output to an output object
+\item Use a render function to make the output
+\item Have the output depend on input values 
+\end{itemize}
+
+\section*{Share shiny apps}
+This will be done by replacing the laptop with a server that will let it run in the cloud.  For a server to run an app, it must be packaged in a particular way. 
+
+\begin{itemize}
+\item All must be in one directory
+\item The script must be a file called \lstinline{app.R}
+\item Alternativley, there can be two files: ui.R and server.R
+\item All these file will be recognised as shiny apps
+\item It is possible to use \lstinline{shinyapps.io}.  This is a server that is created by R-studio.
+\item Code has to be uploaded to the R-studio server. 
+\end{itemize}
+
+\section*{Shiny Server}
+This is your own server that will host a shiny application.  This is a product that will host your app. There is a professional version that will provide a more secure and finetune performance. 
+
 \end{document}
