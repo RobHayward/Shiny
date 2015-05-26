@@ -7,11 +7,11 @@ shinyUI(fluidPage(
   sidebarLayout(
     
  sidebarPanel(
-   textInput("textInput", "Enter text here:")
+   textInput("myText", "Enter text here:")
    ), 
  
  mainPanel(
-   textOutput("myTextOut")
+   textOutput("niceTextOutput")
  )
   )
 ))

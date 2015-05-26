@@ -43,15 +43,16 @@ This is the template for the app.  Using just this code will create an app that 
 
 \section*{Input}
 \begin{lstlisting}[frame = single, caption = "Input function"]
-sliderInput{inputId = "num", 
+sliderInput(inputId = "num", 
   label = "Choose a number", 
-  value = 25, min = 1, max = 100}
+  value = 25, min = 1, max = 100)
 \end{lstlisting}
 
 There is an input name (for internal use), a label to display in the ui and some additional arguments to control the input (in this case the maximum and minimum). 
 
 \section*{Outputs}
 There are a range of \emph{output functions} that will place information on the page. 
+\begin{center}
 \begin{tabular}{l|l}
 \textbf{Function} & \textbf{Inserts}\\
 \hline
@@ -63,16 +64,17 @@ tableOutput()&talbe\\
 textOutput()&text\\
 uiOutput()&A Shiny ui element\\
 \end{tabular}
+\end{center}
 
 It is possible to add a histogram.  First, provide a space for this in the user interface. This code will make a space for the histogram, even though there is no histogram to place in the space yet.  That has to be done in the server.
 
 \begin{lstlisting}[frame = single, caption = "Add a space for histogram"]
-ui <- fluidPage{
+ui <- fluidPage(
   sliderInput(inputId = "num", 
   label = "Choose a number", 
   value = 25, min = 0, max = 100), 
   plotOutput("hist")
-}
+)
 
 server = function(input, output) {}
 

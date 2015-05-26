@@ -8,9 +8,12 @@ shinyUI(fluidPage(
     
     sidebarPanel(
       numericInput("numberInput", "Chose number", max = 1000, min = 100, value = 100), 
-      selectInput("colInput", "Chose colour", choice  = c("red","blue", "green"),
+      selectInput("colInput", "Choose colour", choice  = c("red","blue", "green")),
       textInput("title", "Enter text for title")
-      ,
+      
+      ),
+    
+      
     mainPanel(
       plotOutput("myPlot")
     )
@@ -18,4 +21,4 @@ shinyUI(fluidPage(
     
   )
   
-) )))
+ ))

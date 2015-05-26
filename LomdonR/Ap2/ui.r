@@ -6,14 +6,24 @@ shinyUI(fluidPage(
   
   sidebarLayout(
     
-    sidebarPanel(textInput("textInput", "Enter text here:")
-                 
-                 ), 
+    sidebarPanel(
+      textInput("myTextInput", "Enter text here:"),
+      numericInput("myNumberInput", "Select a number", value = 50, 
+                   min = 0, max = 100, step = 1),
+      selectInput("mySelectInput", "Select from the dropdown:", 
+                  choices = LETTERS[1:10])
+               ), 
     
     mainPanel(
-      textOutput("dateOutput")
+      h4("Using HTML in Shiny"),
+      p("This is a paragraph of text that is included in the main panel.", 
+      strong("This text is in bold")), 
+      ("You entered text"),
+      textOutput("myTextOut"), 
+      textOutput("myNumberOut"),
+      textOutput("myChoiceOut")
     )
     
     
-  )))
+)  ))
   

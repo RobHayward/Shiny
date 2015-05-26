@@ -1,5 +1,6 @@
 library(shiny)
 library(dplyr)
+library(tidyr)
 myData <- read.csv("../../Data/weoA.csv", stringsAsFactors = FALSE, 
                na.strings = "n/a") 
 names <- c("Country", "Subject", "Units", "Scale", "Notes", 1980:2019, "start")
@@ -16,10 +17,8 @@ shinyServer(function(input, output) {
   # Compute the forumla text in a reactive expression since it is
   # shared by the output$caption and output$mpgPlot functions
 myPlot <- reactive({
-  country <- input$Country
-  variable <- input$Variable
-  a <- filter(myData3, Country == country) 
-  a[,variable]  
+  a <- filter(myData3, Country == input$country) 
+  a[,input$Variable]  
  
 })  
   # Return the formula text for printing as a caption

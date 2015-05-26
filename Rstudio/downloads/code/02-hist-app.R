@@ -8,8 +8,9 @@ ui <- fluidPage(
 )
 
 server <- function(input, output) {
-  output$hist <- renderPlot({
-    hist(rnorm(input$num))
+      output$hist <- renderPlot({
+        main = "Histogram of random numbers"
+    hist(rnorm(input$num), main = main, xlab = "Number", ylab = "Frequency")
   })
 }
 

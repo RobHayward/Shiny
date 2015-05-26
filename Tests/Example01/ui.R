@@ -10,7 +10,7 @@ shinyUI(fluidPage(
                   min = 5, 
                   max = 50, 
                   value = 30),
-      ("Choose the number of bids to change the dispursion of the data.  
+      ("Choose the number of bins to change the dispursion of the data.  
        This can give you an initial feel for the data ")
     ), 
     mainPanel(

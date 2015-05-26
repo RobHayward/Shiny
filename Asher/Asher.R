@@ -10,6 +10,7 @@ short <- da[da$country == "US", ]
 head(short)
 class(short)
 barplot(da)
+da <- as.matrix(da)
 countries <- c("TR", "US")
 variable <- "hardware"
 par(las = 2)
