@@ -1,0 +1,35 @@
+---
+title: "Mango Document"
+author: "RobHayward"
+date: "28 May 2015"
+output: html_document
+---
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+require(dplyr)
+require(ggplot2)
+require(knitr)
+```
+# This will be my main heading
+## This will be my secondary heading
+This is usual text.  This has not yet been formatted. 
+
+This text is normal *this is italic*, **this is bold**. *__bold italic__*
+
+* item 1
+* item 2
+* item 3
+
+1. Item 1
+2. Item 2
+3. Item 3
+
+### including R code
+```{r}
+mean(airquality$Wind)
+```
+```{r, echo = FALSE}
+london <- read.csv("london.csv")
+smallData <- filter(london, Area > mean(Area))
+kable(smallData)
+```
+This is lovely data and the mean of the area is 'r mean(london$Area)`

@@ -1,0 +1,24 @@
+---
+title: "My first shiny document"
+author: "RobHayward"
+date: "28 May 2015"
+output: html_document
+runtime: shiny
+---
+
+## Inputs
+```{r, echo=FALSE}
+sliderInput("number", label = "Please select a number",
+            min = 1, max = 500, value = 100)
+```
+## Outputs
+```{r, echo=FALSE}
+renderPlot({
+  
+  simData <- rnorm(input$number)
+  
+  hist(simData, col = "red")
+})
+
+
+```

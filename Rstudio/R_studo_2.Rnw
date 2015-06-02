@@ -1,0 +1,14 @@
+\documentclass{hitec}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{color}
+\definecolor{mygrey}{gray}{0.85}
+\lstset{backgroundcolor = \color{mygrey}}
+\usepackage[colorlinks = true, citecolor = blue, linkcolor = blue]{hyperref}
+\title{R-Studio Shiny Webinar Number 2}
+\author{Rob Hayward}
+\begin{document}
+\maketitle
+\section*{R Studio Webinar}
+  This is comes from the R-Studio video tutorials Number 2.Available on \href{http://www.rstudio.com/resources/webinars/}{R Studio Page}. This is is about how to customise reactions with Shiny. Code is available at \href{bit.ly/shiny-quickstart-2}{Quickstart 2}.  
+\end{document}

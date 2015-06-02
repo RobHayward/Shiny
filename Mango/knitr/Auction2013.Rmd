@@ -1,0 +1,26 @@
+---
+title: "2013 auction analysis"
+author: "RobHayward"
+date: "28 May 2015"
+output:html_document
+runtime: shiny
+---
+
+## Introduction
+This is the update on the latest auction analysis. This is an annual update. 
+
+## Analysis
+```{r, echo=FALSE}
+pwd()
+auction <- read.csv("auction2013.csv")
+auctionLM <- lm(FinalPrice ~ ReservePrice, data = auction)
+summary(auctionLM)
+```
+## Results
+```{r, echo=FALSE}
+actionData <- reactive({
+file <- paste("auction")
+renderTable
+  
+})
+```

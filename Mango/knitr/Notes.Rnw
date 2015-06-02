@@ -1,0 +1,33 @@
+\documentclass{article}
+
+\begin{document}
+
+Render must be followed by the ({})
+Default values are useful so that an error is not thrown back at you. 
+
+runApp("MyFirstApp, launchinBrowser = TRUE)
+
+It is possible to create a project.  One of the options is a web application.  This give you the option to create a directory name, place that it will be saved and other options.  This will also create the two files (ui and server).  
+
+This will create a template with the gyser histogram. 
+
+New way of outputing tables (update from xtable). 
+
+Submitbutton will hold back the inputs.
+
+Exercise 3 will include a number of options to find files and download data. It would be good to run through that.  Particularly usesful are file.path and list.files. 
+
+Use of data - when is data being run?  Data loaded in server script. Don't want to run too often. 
+
+Tabset Panel.  Cannot post charts on multiple pages. 
+
+fluidPage(theme = "mango.css") will create the css.  Packge shiny.themes 
+
+\section{Sharing shiny apps}
+Can be shared on github. Mangothecat github page. R-studio host apps. 
+
+
+
+
+
+\end{document}
