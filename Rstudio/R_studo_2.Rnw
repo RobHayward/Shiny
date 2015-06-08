@@ -11,4 +11,97 @@
 \maketitle
 \section*{R Studio Webinar}
   This is comes from the R-Studio video tutorials Number 2.Available on \href{http://www.rstudio.com/resources/webinars/}{R Studio Page}. This is is about how to customise reactions with Shiny. Code is available at \href{bit.ly/shiny-quickstart-2}{Quickstart 2}.  
+  This is about the \lstinline{server.R} section this week. This is all about \emph{reactivity}.  Reactivity is the reaction of an output object to a change in the input object.  THe input objecs are the widgits and the outputs are the graphs and tables. A \emph{reactive function} takes \emph{reactive values} and knows what to do with them. The reactive value must be paried with the reactive function. It is important to know about the reactive functions that can be used. 
+  Reactive functions work in two steps:  reactive values notify the things downstream that a changte has been made, the reactive function calls the value and updates whatever it is supposed to update. 
+  
+  There are seven functions im the reactive toolkit.  All these functions take code to build objects.  The object will react to changes in the reactive values. It is important to know which reactive values the function will respond to. 
+  \begin{itemize}
+  \item \lstinline{render()}: there are a famuily of render functions. These inclue \lstinline{renderDatatable()}, \lstinline{renderImage()}, \lstinline{render Plot()} etc. Each of these will have code between the curly brace. There can be muiltiple lines of code.  This object will respond whenever any of the reactive values change. The entire block will run.  In the example, the \lstinline{renderPlot()} function will response to two reactive values (title and number). It may be that there is one reactive value but two output objects from the reactive functions. There is a risk here that the two outputs will be for differnet datasets. 
+  \item lstinline{reactive()} will upate once. This will build an \emph{reactive object} or a \emph{reactive expression}.  This will build some data from teh reactive inoput and make that avaialable to be used later. Reactive objects are differnet because they are functions and if you wnat ot use the output of the fucntion you have to treat it as a function by supplying brakets \lstinline{data()}.  This is very important.  
+  \begin{lstlisting}[frame = single, caption = "Shiny template"]
+  library(shiny)
+  ui <- fluidPage{
+  sliderInput(inputID = "num",
+    label = "Chose an number", 
+    value = 25, min = 1, max = 100), 
+    plotOut("hist), 
+    verbatimTextOutput("stats")
+}
+
+server <- function(imput, output) {
+  data <- reactive({
+    rnorm(input$num)
+})
+output$hist <- renderPlot({
+  hist(data())
+})
+putput$stats <- renderPrint({
+  summary(data())
+})
+}
+shinyApp(ui = ui, server = server)
+\end{lstlisting}
+Builds the data once but uses it twice. The reactive expression knows whether it is valid of invalid.  The widgit will send a message to the reactive fucntion when it is invalid.  Once the reactive function has updated itself to the new reactive value, it knows that is the case and will not ask for a new update. This is around 24.40 - 25.00 in the video. The reactive expression will hold the values as a cache. It will use the cache when it is valid.  It will seek a new value if invalid. 
+\item \lstinline{isolate()}: will create output that is not reactive. It will work in the same way as other fucntions assessed here, but the block of code will not respond to any of the reactive values. So, compared to the previous example, 
+  \begin{lstlisting}[frame = single, caption = "shiny template"]
+  library(shiny)
+  ui <- fluidpage{
+  sliderinput(inputid = "num",
+    label = "chose an number", 
+    value = 25, min = 1, max = 100), 
+  textinput(inputid = "title", 
+    label = "write a title", 
+    value = "histogram of random normal values"), 
+    plotout("hist), 
+    verbatimtextoutput("stats")
+}
+
+server <- function(imput, output) {
+  output$hist <- renderplot({
+  hist(rnorm(input$num), 
+  main = isolate({input$title})
+})
+putput$stats <- renderprint({
+  summary(data())
+})
+}
+shinyapp(ui = ui, server = server)
+\end{lstlisting}
+
+
+\item Now we will use a new tuple of input.  This is an \emph{Action button}. This is paired in this example with \lstinline{observeEvent()}.  This uses a different syntax. The first argument is a reactive value or a vector of reactive values. These values will affect the \lstinline{observeEvent()}. The second argument is code to be run when the trigger is received. This works like isolate.  It only chages when the reactive value changes. This the equivalent of wrapping the code in isolate.  The code of the second function could include reactive values but they will not be trigged until the action button changes. This is changing on the server but not on the ui. 
+
+\item \lstinline{observe()} is given a block of code that will run whenever the reacgtive vaues change. 
+\item \lstinline{eventReactive()} This will delay reactions. An update buttom can decide when the graph will be updated. \lstinline{eventReactive} has a syntax that is simikar to ObserveEvent. The reaction will be delayed until update button is used. 
+
+\item \lstinline{reactiveValues()} will create a list of reactive values. Need to look at this in more detail. The reactive values will update the main function. 
+  \begin{lstlisting}[frame = single, caption = "shiny template"]
+  library(shiny)
+  ui <- fluidpage{
+ actionButton(inputId = "norm", label = "Normal"), 
+ actionButton(inputId = "unit", label = "Uniform"), 
+ 
+}
+
+server <- function(imput, output) {
+ 
+ rv <- reactiveValues(data = rnorm(100))
+ 
+ observeEvent(input$norm, {rv$data <- rnorm(100)})
+ observeEvent(input$unif, {rv$data <- runif(100)})
+ 
+ output$hist <- renderPlot({ 
+  hist(rv$data)
+})
+
+}
+shinyapp(ui = ui, server = server)
+\end{lstlisting}
+
+
+\end{itemize}
+
+Need to think about how the code is run.  Outside the server session will run onece. Code that is in the server function will run for each user.  This will be used much more often. The code in a render function will be run each time the values change.  This should house the bare minimum code. 
+
 \end{document}
+
