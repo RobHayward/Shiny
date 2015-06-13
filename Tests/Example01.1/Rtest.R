@@ -2,7 +2,7 @@ da <- read.csv("Data/weob.csv")
 # This does not work. I want to sub-set te data for the range that is 
 # selected. 
 
-start <- 1980
+start <- 1985
 end <- 2019
   dates <- seq(start, end, 1)
   x    <- da[, c(1, 2)]  # Input data
@@ -15,4 +15,8 @@ end <- 2019
   plot(y, col = 'darkgray',  
        main = "Evolution of Unemployment", type = 'l')
   # I am not sure why this works and the shiny app does not. 
+  head(subset(x, x[1,] == dates))
+  dates
+  head(x)
+  head(y)
   

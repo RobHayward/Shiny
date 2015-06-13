@@ -1,0 +1,181 @@
+\documentclass{hitec}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{color}
+\definecolor{mygrey}{gray}{0.85}
+\lstset{backgroundcolor = \color{mygrey}}
+\usepackage[colorlinks = true, citecolor = blue, linkcolor = blue]{hyperref}
+\title{R-Studio Shiny Webinar Number 3}
+\author{Rob Hayward}
+\begin{document}
+\maketitle
+\section*{R Studio Webinar}
+  This is comes from the R-Studio video tutorials Number 3.Available on \href{http://www.rstudio.com/resources/webinars/}{R Studio Page}. This is is about how to customise reactions with Shiny. Code is available at \href{bit.ly/shiny-quickstart-3}{Quickstart 2}.  
+    This is all about controling the appearance of the page. Everything that is being done is created through html. The r function create html. Call r functions that return html. \lstinline{fluidPage} is the easy way to do that. 
+\section{Add static content}
+    Since the app is a web page, you can add content in the same way that it is added to a regular web page. For example, with a regular 
+
+\begin{lstlisting}[frame = single, caption = "HTML"]
+<div class="container-fluid">
+ <h1>My Shiny App</h1>
+  </div>
+ \end{lstlisting}
+ 
+ Shiny provides a list of R functions to recreate HTML tags.  The most common R tags can be found with \lstinline{names(tags)}. This si a list of functions that create html tags.  The functions are a list of functions. 
+ 
+\begin{lstlisting}[frame = single, caption = "Shiny tabs"]
+  tags$h1()
+\end{lstlisting}
+   
+will return \lstinline{<h1></ha>}. And 
+\begin{lstlisting}[frame = single, caption = "Hyperlink"]
+tags$a(href = "www.rstudio.com", "R.Studio")
+\end{lstlisting}
+
+will return \lstinline{<a href="www.rstudio.com">RStudio</a>}
+
+Text can be written without calling a tag.  However, use the  \lstinline{p()} tag for paragraph and \lstinline{img()} for an image. Use \lstinline{code()} for code.  It is also possible to nest tags together.  Therefore a \lstinline{strong()} tag could be within a \lstinline{p()} tag. 
+
+Anything that you want to be available to the user can be put into the \lstinline{www} folder. 
+
+The most useful tags and the ones that do not conflict with existing R functions can be run without \lstinline{tags$}. For example \lstinline{h1} can be used on its own. The most used are 
+\begin{itemize}
+\item a() a hyperlink
+\item br() a line break
+\item code() code
+\item em() Initialize
+\item h1(), h2() headers to 6
+\item hr() horizontal line
+\item img() image
+\item p() paragraph
+\item strong() bold.
+\end{itemize}
+
+Add raw html with \lstinline{html()}.  
+
+\section{Pay layout}
+It is possible to design the page with three dimensions: one page and the number of pages. There are a number of functions that are called \emph{divs}. They will break the page up into a number of dividing spaces. 
+
+\lstinline{fluidRow()} will break the page up by adding rows to the grid. For example, 
+
+\begin{lstlisting}[frame = single, caption = "fluidPage"] 
+ui <- fluidPage(
+fluidRow(), 
+fluidRow()
+)
+\end{lstlisting}
+
+Will create two rows. 
+
+\lstinline{column()} will add a column to the space. 
+
+\begin{lstlisting}[frame = single, caption = "Column()"] 
+ui <- fluidPage(
+fluidRow(
+ column(3), 
+ column(5)
+), 
+
+fluidRow(
+  column(4, offset = 8)
+)
+\end{lstlisting}
+
+It is possible to specify the \lstinline{width} (first argument) and the \lstinline{offset} out of 12. In the example above, the first column takes 3 of the 12 units. The offset inserts units between the left side of the page and the start of the column. The width argument is mandatory and the offset argument is optional. 
+
+Arguments passed to column will be placed in that space. 
+
+\begin{lstlisting}[frame = single, caption = "Objects in columns"]
+column(2, plotOutput("hist"))
+\end{lstlisting}
+
+will put the \lstinline{hist} plot in the column. 
+
+\section*{Layers of panels}
+Panels will group elements into a single unit with its own properties. For example, there may be an action button, with some text in one place. 
+
+\begin{lstlisting}[frame = single, caption = "Layers of panels"] 
+ui <- fluidPage(
+
+wellPanel(
+
+sliderInput("num", "Choose a number", 
+    value = 25, min = 1, max = 100), 
+    textInput("title", value =  "Histogram", 
+    label = "Write a title"), 
+  )
+plotOutput("hist")
+)
+\end{lstlisting}
+
+There are twelve panel objects. 
+\begin{itemize}
+\item absolutePanel - set rigid rather than fluid
+\item conditionalPanel - Javascript for visibility
+\item fixedPanel - fixed to browser does not scrol
+\item headerPanel - title
+\item inputPanel - goups of inputs
+\item mainPanel - display output wiht a sidebar
+\item navlistPanel - display multiple stacked tabPanels
+\item sidebarPanel - used with pageWithSidebar
+\item tabPanel - use with navlistPanel and tabsetPanel
+\item tabsetPanel - multiple stacking
+\item titlePanel - use with pageWithSidebar
+\item wellPanel - panel with grey background
+\end{itemize}
+
+To start stacking use \lstinline{tabPanel()}. it is made up of a title and elements that are included. These \lstinline{tabPanel()} are designed to work with \lstinline{tabsetPanel()}, \lstinline{navlistPanel()}, and \lstinline{navbarPanel()}. In each case, the tabPanels are passed to the tabset or navlist so that there are tabs across the top of the page or a list of navigatabe points down the side.  
+
+\section{Pre-packaged layout}
+The most common method to use is the \emph{Sidebar layout}
+\begin{lstlisting}[frame = single, caption = "Standard Sidebar"] 
+ui <- fluidPage(
+
+  sidebarLayout(
+  
+  sidebarPanel(),
+  
+  mainPanel()
+
+  )
+)
+\end{lstlisting}
+
+This will create a sidebar and a main panel.  The functions go into the two components.  There is an example number sevent in the notes.
+
+Another method is to use \lstinline{fixedPage()}. This will create a page of fixed 734, 940 or 1170 pixels (depending on the browser). Alternatively, \lstinline{navbarPage()} combines tabs into a single page. This function just takes a title and then the panels that you want to give to it. The navigation is at the top and the main (selected) page is below. There is an example. 
+
+\lstinline{navbarMenu()} will put a menu on the navbar.  This means that you have tabs and some or the tabs have additional options. 
+
+Finally, there is the \lstinline{dashboardPage()}.  This is part of the shiny dashboard package. There are a lot of resources for this. 
+
+\section*{Style with CSS}
+This is \emph{Cascading Style Sheets}. This will customise the elements of the page. Three major elements of style.
+\begin{itemize}
+\item Link to an external CSS file
+\item Write global CSS in the header
+\item Write individual CSS in a tab
+\end{itemize}
+
+Shiny uses the Bootstrap 3 CSS framework. It is possible to change some of the CSS associated with Shiny. Put any CSS document in the \lstinline{www} folder. If that is done, the following pointer is made. 
+\begin{lstlisting}[frame = single, caption = "Reference to CSS"] 
+ui <- fluidPage(
+  theme = "bootstrap-cerulean.css", 
+  
+  sidebarLayout(
+  
+  sidebarPanel(),
+  )
+)
+\end{lstlisting}
+
+Alternatively, the \lstinline{tags$head()} will create a head section for the app. This will allow you to put css information in the page. This can take an argument for the file with the css information. It is also possible to put the css information into the tag function itself. 
+
+\begin{lstlisting}[frame = single, caption = "Tags and CSS"] 
+ui <- fluidPage(
+  tags$h1("Title, style = "color:red;")
+)
+\end{lstlisting}
+
+ \end{document}
+
