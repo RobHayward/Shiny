@@ -10,7 +10,7 @@ shinyServer(function(input, output) {
   # this expression
   data <- renderTable({
     select(da, input$country)
-    dist(input$n)
+    
   })
   
   # Generate a plot of the data. Also uses the inputs to build
@@ -19,7 +19,7 @@ shinyServer(function(input, output) {
   # all expressions are called in the sequence implied by the
   # dependency graph
   output$plot <- renderPlot({
-    data <- da[,Variable]
+    data <- data[,input$Variable]
       })
   
   # Generate a summary of the data

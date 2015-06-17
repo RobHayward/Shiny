@@ -13,8 +13,10 @@ shinyUI(fluidPage(
     sidebarPanel(
       selectInput("Select", "Variable",
                    c("Inflation" = "Inflation",
-                     "Unemployment" = "Unemployment")),
-        
+                     "Unemployment" = "Unemployment"), 
+                  selected = "Inflation"),
+       selectInput("country", "Select Country", choices = c("Australia", 
+                      "Germany"), selected = "Australia") 
        ),
     
     # Show a tabset that includes a plot, summary, and table view

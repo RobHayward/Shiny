@@ -18,5 +18,6 @@ names(myData4) <- c("Country", "Year", "Inflation", "Unemployment")
 head(myData4)
 a <- filter(myData4, Country == "Australia") 
 a[,"Inflation"]
+a <- as.numeric(a[,"Inflation"])
 boxplot(a)
 

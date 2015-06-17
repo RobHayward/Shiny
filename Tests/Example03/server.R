@@ -18,8 +18,8 @@ shinyServer(function(input, output) {
   # shared by the output$caption and output$mpgPlot functions
 myPlot <- reactive({
   a <- filter(myData3, Country == input$country) 
-  a[,input$Variable]  
- 
+  as.numeric(a[,input$Variable], na.omit())  
+   
 })  
   # Return the formula text for printing as a caption
   
