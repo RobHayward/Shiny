@@ -1,4 +1,4 @@
-shinyUI(fluidPage(
+shinyUI(fluidPage(theme = "bootstrap.css",  
   titlePanel("Analysis of Unemployment and Inflation"), 
   
   sidebarLayout(
@@ -7,8 +7,7 @@ shinyUI(fluidPage(
                   choices = countrySelect, 
                   selected = "Germany"), 
       selectInput("Series", "Select Series", 
-                  choices = c("Unemployment rate", 
-                              "Inflation"), 
+                  choices = variableSelect, 
                   selected = "Unemployment rate")
     
       

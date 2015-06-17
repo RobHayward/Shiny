@@ -1,5 +1,6 @@
 require(tidyr)
 require(dplyr)
+require(shinythemes)
 da <- read.csv("weoA.csv", stringsAsFactors = FALSE, 
   na.strings = "n/a") 
 names <- c("Country", "Subject", "Units", "Scale", "Notes", 1980:2019, "start")
@@ -13,5 +14,6 @@ colnames(mdata) <- c("Country", "Variable", "Year", "Value")
 # want Year as number not factor.  Can't fix yet.
 # mdata$Year <- as.(mdata$Year, format = "%Y") 
 countrySelect <- mdata$Country
+variableSelect <- mdata$Variable 
   
   
