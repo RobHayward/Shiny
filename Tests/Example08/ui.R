@@ -6,11 +6,14 @@ shinyUI(fluidPage(theme = "bootstrap.css",
       selectInput("Country", "Choose a Country", 
                   choices = countrySelect, 
                   selected = "Germany"), 
-      selectInput("Series", "Select Series", 
+      selectInput("Series1", "Select Series", 
                   choices = variableSelect, 
-                  selected = "Unemployment rate")
+                  selected = "Unemployment rate"),
     
-      
+      selectInput("Series2", "Select Series", 
+                  choices = variableSelect, 
+                  selected = "Inflation")
+     
     ),
     
     mainPanel(plotOutput("ts")
