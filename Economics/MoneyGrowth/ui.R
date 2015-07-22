@@ -13,7 +13,8 @@ shinyUI(fluidPage(
    ),
    mainPanel(("main panel"),
 h1("The evolution of GDP"),
-h5("Change the parameters to analyse different growth rates. "), 
+h5("Change the parameters to analyse different growth rates. This is a Cobb-Douglas 
+   production function.  "), 
 plotOutput("plot")
  )
  )
