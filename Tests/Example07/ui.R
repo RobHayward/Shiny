@@ -5,10 +5,10 @@ shinyUI(fluidPage(theme = "bootstrap.css",
     sidebarPanel(
       selectInput("Country", "Choose a Country", 
                   choices = countrySelect, 
-                  selected = "Germany"), 
+                  selected = ""), 
       selectInput("Series", "Select Series", 
                   choices = variableSelect, 
-                  selected = "Unemployment rate")
+                  selected = "")
     
       
     ),
