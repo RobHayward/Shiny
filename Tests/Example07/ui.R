@@ -18,6 +18,4 @@ shinyUI(fluidPage(theme = "bootstrap.css",
               )
     
   )
-  # Mot sure why this does not work. 
-  
 ))
