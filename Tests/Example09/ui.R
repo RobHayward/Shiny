@@ -5,15 +5,8 @@ shinyUI(fluidPage(theme = "bootstrap.css",
     sidebarPanel(
       selectInput("Country", "Choose a Country", 
                   choices = countrySelect, 
-                  selected = ""), 
-      selectInput("Series1", "Select Series", 
-                  choices = variableSelect, 
-                  selected = ""),
-    
-      selectInput("Series2", "Select Series", 
-                  choices = variableSelect, 
-                  selected = "")
-     
+                  selected = "") 
+      
     ),
     
     mainPanel(plotOutput("ts")

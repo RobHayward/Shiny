@@ -16,5 +16,3 @@ colnames(mdata) <- c("Country", "Variable", "Year", "Value")
 # mdata$Year <- as.(mdata$Year, format = "%Y") 
 countrySelect <- mdata$Country
 variableSelect <- mdata$Variable 
-  
-  
