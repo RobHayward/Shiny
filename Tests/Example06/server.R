@@ -3,9 +3,9 @@
 
 shinyServer(function(input, output){
     output$text1 <- renderText({
-         paste("Country one is ", input$country1, 
-               "Country two is ", input$country2, 
-               "question is", input$question, sep = " ")
+         paste("Country one is ", input$country1, ".",
+               "Country two is ", input$country2, ".",
+               "Question is", input$question, ".", sep = " ")
     })
     output$text2 <- renderText({
       paste("Country is", input$country2, sep = "")
