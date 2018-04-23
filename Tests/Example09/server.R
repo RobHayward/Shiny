@@ -16,7 +16,7 @@ dataInput <- reactive({
                           
   })
  
-title <- reactive({paste("Unimployment and Inflation for", input$Country, 
+title <- reactive({paste("Unemployment and Inflation for", input$Country, 
                          sep = " ")
   })
 eq <- reactive({lm(dataInput()[,3] ~ dataInput()[,4])
